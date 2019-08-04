@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { url } from 'inspector';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,8 +26,8 @@ export class HeroService {
 
 /** GET heroes from the server */
 getHeroes (): Observable<Hero[]> {
-  return this.http.get<Hero[]>(this.heroesUrl)
-    .pipe(
+  return this.http.get<Hero[]>( "http://localhost:8080/heroes-api/tour-heroes")
+  .pipe(
       tap(_ => this.log('fetched heroes')),
       catchError(this.handleError<Hero[]>('getHeroes', []))
     );
